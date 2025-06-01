@@ -1,15 +1,22 @@
 ---
 interface ImageandCaption{
     src : string;
-    caption: string;
+    caption?: string | null;
+    size: [number,number];
 }
 
 type Image = string | ImageandCaption;
 
 const { images }= Astro.props as { images: Image[] };;
 
-const normal = images.map((image) => 
-    typeof image === "string" ? {src : image , caption: null} : image
+const normal : Required<ImageandCaption>[] = images.map((image) => 
+    typeof image === "string" 
+    ? {src : image , caption: null , size: [700,800]} 
+    : {
+        src : image.src,
+        caption : image.caption ?? null,
+        size : image.size ?? [700,800]
+    }
 );
 ---
 
@@ -20,6 +27,10 @@ const normal = images.map((image) =>
         z-index: 0;
         top: 0px;
         transition: opacity 0.5s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height:100%
     }
     .active{
         opacity:1;
@@ -27,12 +38,16 @@ const normal = images.map((image) =>
         transition: opacity 1s ease;
     }
 
-    .slide img{
-        height: 700px;
-        width:800px;
+    p{
+        position:absolute;
+        background-color: rgba(0,0,0,0.5);
+        color:white;
+        bottom:0px;
+        left:0px;
+        margin-bottom: 0px;
+        font-size: 20px;
+        padding: 5px;
     }
-
-
     .photoreel{
         position: relative;
         margin-top: 40px;
@@ -85,7 +100,7 @@ const normal = images.map((image) =>
     </div>
     {normal.map((image,i) => (
         <div class={`slide${i === 0?" active":""}`} data-index = {i}>
-            <img src = {image.src} alt = {image.caption || `Photo ${i+1}`} />
+            <img src = {image.src} alt = {image.caption || `Photo ${i+1}`} style={`height: ${image.size[0]}px; width: ${image.size[1]}px; object-fit: cover;`} />
             {image.caption && <p class="caption"> {image.caption} </p>}
         </div>
     ))}
