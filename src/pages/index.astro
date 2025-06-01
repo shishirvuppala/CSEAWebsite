@@ -1,11 +1,53 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import PhotoReel from '../components/PhotoReel.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const imagesarray = [
+	"images/indexreel/fresherwelcome.jpeg",
+	"images/indexreel/volleyball.jpeg",
+	"images/indexreel/khokho.jpeg",
+	"images/indexreel/football.jpeg",
+	"images/indexreel/tradday.jpeg"
+];
+
 ---
 
 <Layout>
-	<Welcome />
+	<div id="intro">
+		<h1>WELCOME</h1>
+		<img src="/images/csea_logo.jpg" alt="LOGO">
+		<h2>COMPUTER SCIENCE ENGINEERING ASSOCIATION</h2>
+		<h3>We gather, we devour, we play, we travel but most importantly, we enjoy!</h2>
+		<h3>We make CSE@IITB fun!</h3>
+		<h3>#WeAreCSEA</h3>
+		<br>
+		<br>
+		<h2>Heres a look at some of our events!</h2>
+	</div>
+	<PhotoReel images = {imagesarray} />
 </Layout>
+
+<style>
+	#intro{
+		color: white;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-family: "Jost", sans-serif;
+	}
+	img{
+		height: 286px;
+		width: 734px;
+		margin:0px;
+	}
+	h1{
+		font-size: 90px;
+		margin-bottom: 20px;
+	}
+	h2{
+		font-size: 30px;
+	}	
+	h3{
+		margin: 5px;
+	}
+</style>

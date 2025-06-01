@@ -1,0 +1,63 @@
+---
+import PhotoReel from "../components/PhotoReel.astro";
+import Layout from "../layouts/Layout.astro";
+import BitstreamLink from "../components/BitstreamLink.astro";
+
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const bitstream: CollectionEntry<'bitstream'>[] = await getCollection('bitstream');
+
+const col = [
+    {src: "/images/bitstreamcouncil/bitstreamcouncil2021.jpeg", caption:"Bitstream Team 2020-21"},
+]
+
+---
+
+<Layout under="bitstreamtab">
+    <main>
+        <br>
+        <h1>What is Bitstream?</h1>
+        <br>
+        <h2>BitStream is a student-run newsletter run by CSEA containing pieces by students, articles on new developments in computer science,
+            interviews with professors and so much more! <br><br> Check out the previous editions of the newsletter below!</h2>
+        <br>
+        <br>
+        <PhotoReel images = {col} />
+        <br>
+        <div id="bitstreamlinks">
+        {
+            bitstream.map((article) => (
+                <BitstreamLink  name={ article.data.year + " Edition"} image={article.data.image} author="Bitstream Team" slug={article.data.year} />
+            ))
+        }
+        </div>
+    </main>
+</Layout>
+
+<style>
+    h1{
+        font-family: "Jost", sans-serif;
+        font-size: 50px;
+        color: white;
+        text-align: center;
+    }
+    h2{
+        margin-right:200px;
+        margin-left:200px;
+        font-family: "Jost", sans-serif;
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        line-height: 25px;
+    }
+    #bitstreamlinks{
+		color: white;
+		display: flex;
+		flex-direction: row;
+		font-family: "Jost", sans-serif;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 4rem;
+        margin:50px;
+    }
+</style>

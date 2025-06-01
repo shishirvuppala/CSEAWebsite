@@ -1,0 +1,61 @@
+---
+const {year} = Astro.params;
+import { getCollection} from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const posts = await getCollection('bitstream');
+
+export async function getStaticPaths(){
+    const posts = await getCollection('bitstream');
+    return posts.map((post) => ({
+        params: {year: post.data.year}
+    }));
+}
+
+const yearfile = posts.find(e => e.data.year === Number(year));
+
+
+
+if (!yearfile) {
+  throw new Error(`Event not found for year: ${typeof year}`);
+}
+
+const { Content } = await yearfile.render();
+---
+
+<Layout under="bitstreamtab">
+    <article id="blog">
+        <Content />
+    </article>
+</Layout>
+
+<style>
+    #blog{
+        font-family: "Jost" , sans-serif;
+        text-align: center;
+        width: 900px;
+        text-align: center;
+        position: relative;
+        margin: 40px auto 0 auto;
+        font-size: larger;
+        background-color: #f3f9ff;;
+        padding: 20px;
+        border-radius: 20px;
+        display:flex;
+        flex-direction: column;
+        box-shadow: 0 0 5px rgba(0, 246, 255, 0.3),
+              0 0 10px rgba(0, 246, 255, 0.2),
+              0 0 15px rgba(0, 246, 255, 0.1);
+    }
+    #blog:hover{
+        animation: bob 0.6s infinite alternate ease-in-out;
+    }
+
+    @keyframes bob {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-3px); }
+    }
+    h2{
+        font-size: 30px;
+    }
+</style>

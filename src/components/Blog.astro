@@ -1,0 +1,80 @@
+---
+const {name,image,author,slug} = Astro.props;
+---
+
+<div id = "whole">
+    <h2>{name}</h2>
+    <img src = {image}/>
+    <h2 id="author"> -{author}</h2>
+    <a href={`/blogs/${slug}`}>READ</a>
+</div>
+
+<style>
+    #whole{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f3f9ff;
+        height:520px;
+        width:300px;
+        border-radius: 10px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
+        box-shadow: 0 0 5px rgba(0, 246, 255, 0.3),
+              0 0 10px rgba(0, 246, 255, 0.2),
+              0 0 15px rgba(0, 246, 255, 0.1);
+    }
+    img{
+        height:300px;
+        width:300px;
+    }
+    h2{
+        margin: 10px;
+        font-size: 35px;
+        font-family: system-ui, sans-serif;
+        color:rgb(0, 0, 0);
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    h2#author{
+        position: absolute;
+        top:420px;
+        font-size: 20px;
+        font-family: system-ui, sans-serif;
+        color:rgb(0, 0, 0);
+        margin-bottom: 0px;
+    }
+    a{
+        all: unset;
+        position: absolute;
+        top:470px;
+        font-family: system-ui, sans-serif;
+        margin:0px;
+        margin-bottom:20px;
+        font-size:15px;
+        font-weight: 700;
+        color: rgb(0, 0, 0);
+        border-style: solid;
+        border-color: black;
+        border-width: 2px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 10px;
+        padding-left: 20px;
+        padding-bottom: 10px;
+    }
+    a:hover{
+        color:rgb(98, 187, 255);
+        border-color: rgb(98, 187, 255);
+    }
+    #whole:hover{
+        animation: bob 0.6s infinite alternate ease-in-out;
+    }
+
+    @keyframes bob {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-3px); }
+    }
+</style>

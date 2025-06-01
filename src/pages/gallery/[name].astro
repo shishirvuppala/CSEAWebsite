@@ -1,0 +1,42 @@
+---
+const {name} = Astro.params;
+import { GalleryEvents } from "../../data/gallery";
+import Layout from "../../layouts/Layout.astro";
+import PhotoReel from "../../components/PhotoReel.astro";
+
+export function getStaticPaths(){
+    return GalleryEvents.map((galevent) => ({
+        params: {name: galevent.short}
+    }));
+}
+
+const event = GalleryEvents.find(e => e.short === name);
+
+const images = event?.images;
+
+---
+
+<Layout under="gallerytab">
+    <main>
+        <h1>GALLERY</h1>
+        <hr>
+        <h2>{event?.name}</h2>
+        <PhotoReel images = {images} />
+    </main>
+</Layout>
+
+<style>
+    h1{
+        font: "Jost", sans-serif;
+        font-size: 50px;
+        color: white;
+        text-align: center;
+    }
+    h2{
+        font: "Jost", sans-serif;
+        font-size: 30px;
+        color: white;
+        text-align: center;
+
+    }
+</style>

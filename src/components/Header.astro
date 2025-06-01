@@ -1,0 +1,70 @@
+---
+const {under} = Astro.props;
+---
+
+<header>
+    <nav>
+        <a href="/">
+            <img src="/images/csea_logo.jpg" alt="LOGO">
+        </a>
+        <div class="links">
+            <a href="/blogs" class={under === "blogstab"? "active" : ""}>Blog</a>
+            <a href="/council"  class={under === "counciltab"? "active" : ""}>Council</a>
+            <a href="/bitstream"  class={under === "bitstreamtab"? "active" : ""}>Bitstream</a>
+            <a href="/gallery"  class={under === "gallerytab"? "active" : ""}>Gallery</a>
+        </div>
+    </nav>
+</header>
+<style>
+    a img{
+        height:60px;
+        width: 154px;
+        margin: 100px;
+    }
+    a{
+        all:unset;
+        cursor:pointer;
+        font-size: 30px;
+        font-weight: 550;
+        margin: 35px;
+        color:white;
+    }
+    a:hover{
+        color: rgb(122, 197, 255);
+        text-decoration-color: rgb(122, 197, 255);
+    }
+    nav{
+        font-family: Tahoma, serif;
+        height:100px;
+        width:100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgb(0,0,0,0.8);
+        position: static;
+    }
+    div{
+        height: 100px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-right: 50px;
+    }
+    hr{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+    .active{
+        text-decoration: underline;
+        text-decoration-color: white;
+    }
+</style>
+
+<script is:inline>
+	document.addEventListener('DOMContentLoaded', () => {
+        const tabId = `${under}`;
+		const x = document.getElementById(tabId);
+		if (x) x.style.textDecoration = 'underline';
+	});
+</script>

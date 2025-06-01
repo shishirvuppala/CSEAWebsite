@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {Councils} from '../data/councils.ts';
+import ProfileCard from '../components/ProfileCard.astro';
+
+---
+
+<script>
+    function showCouncil(idname: string){
+        const x = document.getElementById(idname);
+        const y = document.querySelectorAll('.C');
+        y.forEach((z)=>{
+            (z as HTMLElement).style.display = "none"; 
+        })
+        if(x) x.style.display = "flex";
+    }
+
+    let a = document.getElementById("council2324");
+    if(a) a.addEventListener("click", () => showCouncil("C2324"));
+
+    let b = document.getElementById("council2223");
+    if(b) b.addEventListener("click", () => showCouncil("C2223"));
+
+    let c = document.getElementById("council2122");
+    if(c) c.addEventListener("click", () => showCouncil("C2122"));
+
+    let d = document.getElementById("council2021");
+    if(d) d.addEventListener("click", () => showCouncil("C2021"));
+</script>
+
+<Layout under="counciltab">
+    <button id="council2324">Tenure 2023-24</button>
+    <button id="council2223">Tenure 2022-23</button>
+    <button id="council2122">Tenure 2021-22</button>
+    <button id="council2021">Tenure 2020-21</button>
+    <hr>
+    {Councils.map(([idlol,stringing,council]) => (
+        <div class="C" id={idlol}>
+            <h1>{stringing}</h1>
+            {council.map((person)=> (
+                <ProfileCard name={person.name} image={person.image} position={person.position} email={person.email} />
+            ))}
+        </div>
+    ))
+    }
+</Layout>
+
+<style>
+    .C{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    h1{
+        color:white;
+        text-align: center;
+        font-size: 40px;
+        width: 100%;
+    }
+    button{
+        all: unset;
+    }
+
+    
+
+    hr{
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+    button{
+        margin: 30px;
+        font-size: 25px;
+        border-color: white;
+        color: white;
+        border-style: solid;
+        border-width: 2px;
+        padding:10px;
+    }
+    button:hover{
+        color: rgb(122, 197, 255);
+        border-color: rgb(122, 197, 255);
+    }
+
+    .C{
+        display:none;
+    }
+    .C2324{
+        display:flex;
+    }
+</style>

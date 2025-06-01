@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Blog from '../components/Blog.astro';
+
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const blogPosts: CollectionEntry<'blog'>[] = await getCollection('blog');
+
+---
+
+<Layout under="blogstab">
+    <h1>LATEST BLOGS</h1>
+    <div id="bloglist">
+        {blogPosts.map((blog,i) => (
+            <Blog name={blog.data.title} image={blog.data.blogimage} author={blog.data.author} slug={blog.slug} />
+        ))}
+    </div>
+</Layout>
+
+<style>
+    #bloglist{
+		color: white;
+		display: flex;
+		flex-direction: row;
+		font-family: "Jost", sans-serif;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 4rem;
+        margin:50px;
+	} 
+    h1{
+        font-size: 60px;
+        text-align: center;
+        color: white;
+    }
+</style>

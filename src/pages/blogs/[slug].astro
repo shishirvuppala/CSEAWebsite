@@ -1,0 +1,66 @@
+---
+import { getEntry, getCollection} from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params as { slug: string };
+const blogPost = await getEntry('blog', slug);
+
+if (!blogPost) {
+  throw new Error(`Blog post not found: ${slug}`);
+}
+
+const { Content } = await blogPost.render();
+---
+
+<Layout under="blogstab">
+    <article id="blog">
+        <div class="column">
+            <Content />
+            <h3>-{blogPost.data.author}</h3>
+        </div>
+        {blogPost.data.personimage && <img src={blogPost.data.personimage} />}
+    </article>
+</Layout>
+
+<style>
+    #blog{
+        font-family: "Jost" , sans-serif;
+        text-align: center;
+        width: 900px;
+        text-align: center;
+        position: relative;
+        margin: 40px auto 0 auto;
+        font-size: larger;
+        background-color: #f3f9ff;;
+        padding: 20px;
+        border-radius: 20px;
+        display:flex;
+        flex-direction: row;
+        box-shadow: 0 0 5px rgba(0, 246, 255, 0.3),
+              0 0 10px rgba(0, 246, 255, 0.2),
+              0 0 15px rgba(0, 246, 255, 0.1);
+    }
+    img{
+        height:400px;
+        width:400px;
+        justify-content: center;
+        align-self: center;
+        margin-left:30px;
+    }
+    .column{
+        flex:1;
+    }
+    #blog:hover{
+        animation: bob 0.6s infinite alternate ease-in-out;
+    }
+
+    @keyframes bob {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-5px); }
+    }
+</style>

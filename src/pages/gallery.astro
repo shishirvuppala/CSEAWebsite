@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { GalleryEvents } from "../data/gallery";
+---
+
+<Layout under="gallerytab">
+    <main>
+        <h1>GALLERY</h1>
+        <hr>
+        <div id="whole">
+            {
+                GalleryEvents.map((event)=>(
+                    <div class ="gallerypic">
+                        <a href = {`/gallery/${event.short}`}>
+                            <img src={event.coverimage}/>
+                        </a>
+                        <p>{event.name}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </main>
+</Layout>
+
+<style>
+    h1{
+        font: "Jost", sans-serif;
+        font-size: 50px;
+        color: white;
+        text-align: center;
+    }
+    hr{
+        margin: 50px;
+    }
+    a{
+        all: unset;
+        cursor: pointer;
+    }
+    .gallerypic{
+        margin:30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 300px;
+        position: relative;
+    }
+    img{
+        height:250px;
+        width:250px;
+        object-fit: cover;
+        display: block;
+        margin: 0px;
+    }
+    p{
+        color: white;
+        position: absolute;
+        top: 240px;
+        font-family: "Jost", sans-serif;
+        font-size: 20px;
+    }
+    #whole{
+        margin:30px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+</style>
